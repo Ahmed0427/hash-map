@@ -29,6 +29,7 @@ static size_t get_hash(const char* key) {
 static bool map_extend(Map* map) {
     size_t new_capacity = map->capacity * 2;
     Map_Entry** new_buckets = calloc(new_capacity, sizeof(Map_Entry*));
+
     if (!new_buckets) return false;
     
     for (int i = 0; i < (int)map->capacity; i++) {

@@ -99,6 +99,7 @@ int main() {
     test_map_get();
 
     printf("All tests passed!\n");
+
     return 0;
 }
 

@@ -62,11 +62,9 @@ Frees all memory associated with the map, including the map itself and its entri
 To compile the test suite and map implementation:
 
 ```bash
-gcc -o test map.c test_map.c
+gcc -o test test.c map.c
 ./test
 
-or
+or just
 
-make
-./test
-
+make run
