@@ -10,6 +10,8 @@ void test_map_init() {
     assert(map.size == 0);
     assert(map.capacity > 0);
     printf("map_init passed.\n");
+
+    map_free(&map);
 }
 
 void test_map_insert() {
@@ -22,6 +24,8 @@ void test_map_insert() {
     int* retrieved_value1 = (int*) map_get(&map, "key1");
     assert(retrieved_value1 != NULL && *retrieved_value1 == value1);
     printf("map_insert passed.\n");
+
+    map_free(&map);
 }
 
 void test_map_erase() {
@@ -34,6 +38,8 @@ void test_map_erase() {
     assert(map_erase(&map, "key1"));
     assert(map_get(&map, "key1") == NULL);
     printf("map_erase passed.\n");
+
+    map_free(&map);
 }
 
 void test_map_size() {
@@ -48,6 +54,8 @@ void test_map_size() {
     map_insert(&map, "key2", &value2, sizeof(value2));
     assert(map_size(&map) == 2);
     printf("map_size passed.\n");
+
+    map_free(&map);
 }
 
 void test_map_free() {
@@ -58,7 +66,6 @@ void test_map_free() {
     map_insert(&map, "key1", &value1, sizeof(value1));
 
     map_free(&map);
-    // No assert here, but ensure no crash or memory leak
     printf("map_free passed.\n");
 }
 
@@ -74,10 +81,13 @@ void test_map_get() {
 
     int value2 = 100;
     map_insert(&map, "key2", &value2, sizeof(value2));
+
     int* retrieved_value2 = (int*) map_get(&map, "key2");
     assert(retrieved_value2 != NULL && *retrieved_value2 == value2);
 
     printf("map_get passed.\n");
+
+    map_free(&map);
 }
 
 int main() {
