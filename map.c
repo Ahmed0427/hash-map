@@ -23,7 +23,7 @@ static size_t get_hash(const char* key) {
         hash ^= (size_t)(unsigned char)(*p);
         hash *= FNV_PRIME;
     }
-    return hash % 10;
+    return hash;
 }
 
 static bool map_extend(Map* map) {
