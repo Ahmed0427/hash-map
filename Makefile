@@ -1,13 +1,22 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -ggdb
-TARGET = test
+CFLAGS = -Wall -Wextra -pedantic -std=c99
 
-$(TARGET):
-	$(CC) $(CFLAGS) -o test test.c map.c
+SRC = map.c test.c
+OBJ = map.o test.o
+EXEC = test
 
-run: $(TARGET)
-	./$(TARGET)
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CC) $(OBJ) -o $(EXEC)
+
+$(OBJ): %.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm $(TARGET)
+	rm -f $(OBJ) $(EXEC)
 
+run: $(EXEC)
+	./$(EXEC)
+
+.PHONY: all clean run
