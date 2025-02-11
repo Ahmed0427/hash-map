@@ -63,7 +63,7 @@ bool map_insert(Map* map, char* key, void* value, size_t value_size) {
     if (!value || !value_size || !map || !key) return false;
 
     if (map->size >= map->capacity * 0.75) {
-        map_extend(map);
+        if(!map_extend(map)) return false;
     }
 
     size_t hash = get_hash(key);
@@ -73,8 +73,9 @@ bool map_insert(Map* map, char* key, void* value, size_t value_size) {
 
     while (t_entry) {
         if (t_entry->hash == hash && strcmp(t_entry->key, key) == 0) {
-            t_entry->value = value;
-            return true;
+            free(t_entry->value);
+            t_entry->value = void_dup(value, value_size);
+            return t_entry->value != NULL;
         }
         t_entry = t_entry->next;
     }
@@ -86,8 +87,9 @@ bool map_insert(Map* map, char* key, void* value, size_t value_size) {
     new_entry->next = map->buckets[index];
     map->buckets[index] = new_entry;
 
-    new_entry->key = strdup(key);
+    new_entry->key = malloc(strlen(key) + 1);
     if (!new_entry->key) return false;
+    memcpy(new_entry->key, key, strlen(key) + 1);
 
     new_entry->value = void_dup(value, value_size);
     if (!new_entry->value) return false;

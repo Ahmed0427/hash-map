@@ -21,6 +21,9 @@ void test_map_insert() {
     int value1 = 42;
     assert(map_insert(&map, "key1", &value1, sizeof(value1)));
 
+    int value2 = 41;
+    assert(map_insert(&map, "key1", &value2, sizeof(value2)));
+
     int* retrieved_value1 = (int*) map_get(&map, "key1");
     assert(retrieved_value1 != NULL && *retrieved_value1 == value1);
     printf("map_insert passed.\n");
