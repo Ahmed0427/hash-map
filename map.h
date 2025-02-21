@@ -1,24 +1,36 @@
-#ifndef _MAP_H
-#define _MAP_H
+#ifndef MAP_H
+#define MAP_H
 
-typedef struct Map_Entry {
-    char* key;
-    void* value;
-    size_t hash;
-    struct Map_Entry* next;
-} Map_Entry;
+#include <stddef.h>
+#include <stdbool.h>
 
-typedef struct {
-    size_t size;
-    size_t capacity;
-    Map_Entry** buckets;
-} Map;
+typedef struct Map Map;  // Opaque type declaration
 
-void map_init(Map* map);
-bool map_insert(Map* map, char* key, void* value, size_t value_size);
-bool map_erase(Map* map, char* key);
-void* map_get(Map* map, char* key);
-size_t map_size(Map* map);
+// Initialize a new map
+Map* map_create(void);
+
+// Insert or update a key-value pair
+// Returns false if allocation fails or parameters are invalid
+bool map_insert(Map* map, const char* key, const void* value, size_t value_size);
+
+// Retrieve a value by key
+// Returns NULL if key not found or parameters are invalid
+void* map_get(const Map* map, const char* key);
+
+// Remove a key-value pair
+// Returns false if key not found or parameters are invalid
+bool map_erase(Map* map, const char* key);
+
+// Get the number of key-value pairs in the map
+size_t map_size(const Map* map);
+
+// Check if a key exists in the map
+bool map_contains(const Map* map, const char* key);
+
+// Remove all key-value pairs from the map
+void map_clear(Map* map);
+
+// Free all resources used by the map
 void map_free(Map* map);
 
-#endif
+#endif // MAP_H

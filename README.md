@@ -5,11 +5,11 @@ This is a simple hash map implementation in C. It provides basic functionality l
 
 ## Functions
 
-### `void map_init(Map* map)`
+### `Map* map_creat(void)`
 Initializes the map with default capacity.
 
-- **Parameters:**
-    - `map`: Pointer to a Map structure to be initialized.
+- **Returns:**
+    - Pointer to a new map 
 
 ### `bool map_insert(Map* map, char* key, void* value, size_t value_size)`
 Inserts a key-value pair into the map. If the key already exists, the value is updated.
@@ -43,6 +43,16 @@ Retrieves the value associated with a given key.
     - Pointer to the value associated with the key.
     - `NULL` if the key is not found.
 
+### `void* map_contains(Map* map, char* key)`
+Check if a key exists in the map
+
+- **Parameters:**
+    - `map`: Pointer to the Map.
+    - `key`: The key of the entry to check.
+- **Returns:**
+    - `true` if the key was found.
+    - `false` if the key was not found.
+
 ### `size_t map_size(Map* map)`
 Returns the number of entries currently in the map.
 
@@ -51,8 +61,14 @@ Returns the number of entries currently in the map.
 - **Returns:**
     - The number of key-value pairs in the map.
 
+### `void map_clear(Map* map)`
+Remove all key-value pairs from the map
+
+- **Parameters:**
+    - `map`: Pointer to the Map.
+
 ### `void map_free(Map* map)`
-Frees all memory associated with the map, including the map itself and its entries.
+Frees all memory used by the map
 
 - **Parameters:**
     - `map`: Pointer to the Map.
